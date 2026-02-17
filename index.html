@@ -1321,19 +1321,7 @@ function animate() {
 }
 animate();
 
-/* ── FORM SUBMIT ─────────────────────────────────── */
-function handleFormSubmit(btn) {
-  btn.textContent = 'Sent! ✓';
-  btn.style.background = '#00c8ff';
-  btn.style.color = '#050a14';
-  btn.style.pointerEvents = 'none';
-  setTimeout(() => {
-    btn.textContent = 'Send Message →';
-    btn.style.background = '';
-    btn.style.color = '';
-    btn.style.pointerEvents = '';
-  }, 3000);
-}
+
 
 /* ── SMOOTH HOVER CARD GLOW ──────────────────────── */
 document.querySelectorAll('.project-card, .skill-category').forEach(card => {
