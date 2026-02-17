@@ -806,11 +806,13 @@
 </head>
 <body>
 
+
 <!-- Custom Cursor -->
 <div class="cursor" id="cursor">
   <div class="cursor-ring" id="cursor-ring"></div>
   <div class="cursor-dot" id="cursor-dot"></div>
 </div>
+
 
 <!-- Background Canvas -->
 <canvas id="bg-canvas"></canvas>
@@ -1176,16 +1178,13 @@
 
 <script>
 /* ── CURSOR ──────────────────────────────────────── */
-const cursorDot = document.getElementById('cursor-dot');
+const cursorDot  = document.getElementById('cursor-dot');
 const cursorRing = document.getElementById('cursor-ring');
+const cursor     = document.getElementById('cursor');
 
-document.addEventListener('mousemove', (e) => {
-  cursorDot.style.left = e.clientX + 'px';
-  cursorDot.style.top = e.clientY + 'px';
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
 
-  cursorRing.style.left = e.clientX + 'px';
-  cursorRing.style.top = e.clientY + 'px';
-});
 (function animateCursor() {
   rx += (mx - rx) * .15;
   ry += (my - ry) * .15;
@@ -1193,6 +1192,7 @@ document.addEventListener('mousemove', (e) => {
   cursorRing.style.transform = `translate(${rx - mx - 18}px,${ry - my - 18}px)`;
   requestAnimationFrame(animateCursor);
 })();
+
 
 /* ── NAVBAR SCROLL ───────────────────────────────── */
 const navbar = document.getElementById('navbar');
