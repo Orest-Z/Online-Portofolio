@@ -50,3 +50,6 @@ yarn-error.log*
 # Local development
 localhost/
 local-dev/
+
+# Profile Picture
+myPic.jpg
