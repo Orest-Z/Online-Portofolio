@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Football Predictor — Orest Zogju</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Reuse the main stylesheet for shared styles (cursor, nav, footer, etc.) -->
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ══ PROJECT DETAIL — PAGE-SPECIFIC STYLES ═══════════════ */
+
+    /* Full-width hero banner for the project */
+    .project-hero {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 160px 8vw 80px;
+      position: relative;
+      z-index: 2;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .back-link {
+      font-family: 'Space Mono', monospace;
+      font-size: .72rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      margin-bottom: 2.5rem;
+      transition: color .2s, gap .2s;
+    }
+    .back-link:hover { color: var(--accent); gap: .8rem; }
+
+    .project-hero-label {
+      font-family: 'Space Mono', monospace;
+      font-size: .7rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .8rem;
+    }
+
+    .project-hero-title {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 640px;
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    .project-hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+    }
+
+    .hero-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: .65rem;
+      padding: 6px 14px;
+      border-radius: 3px;
+      background: rgba(0, 200, 255, .08);
+      border: 1px solid rgba(0, 200, 255, .2);
+      color: var(--accent);
+      letter-spacing: .08em;
+    }
+
+    /* ── Content body ── */
+    .project-body {
+      position: relative;
+      z-index: 2;
+      padding: 80px 8vw;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Two-column layout for main content + sidebar */
+    .project-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .project-main { position: relative; z-index: 3; }
+
+    /* ── Overview / description blocks ── */
+    .content-section { margin-bottom: 3.5rem; }
+
+    .content-label {
+      font-family: 'Space Mono', monospace;
+      font-size: .68rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .content-heading {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .content-text {
+      font-size: .95rem;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+    .content-text + .content-text { margin-top: 1rem; }
+    .content-text strong { color: var(--text); }
+
+    /* ── Feature list ── */
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+      margin-top: 1rem;
+    }
+    .feature-list li {
+      font-size: .9rem;
+      color: var(--muted);
+      display: flex;
+      gap: .8rem;
+      align-items: flex-start;
+      line-height: 1.6;
+    }
+    .feature-list li::before {
+      content: '▹';
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── Screenshot / GIF gallery ── */
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .screenshot-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color .3s, transform .3s;
+    }
+    .screenshot-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    /* Placeholder shown until you drop in real screenshots */
+    .screenshot-placeholder {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #0a1e15, #061510);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+    }
+    .screenshot-placeholder span {
+      font-family: 'Space Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .1em;
+      color: var(--muted);
+    }
+    .screenshot-placeholder-icon { font-size: 2rem; }
+
+    /* Real screenshot / GIF — swap the placeholder for this when ready */
+    .screenshot-img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+
+    .screenshot-caption {
+      font-family: 'Space Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .08em;
+      color: var(--muted);
+      padding: .8rem 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── ML results table ── */
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-family: 'Space Mono', monospace;
+      font-size: .75rem;
+    }
+    .results-table th {
+      color: var(--accent);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: .62rem;
+      padding: 10px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .results-table td {
+      color: var(--muted);
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.03);
+    }
+    .results-table tr:hover td { color: var(--text); background: rgba(0,200,255,.02); }
+
+    /* ── Sidebar ── */
+    .project-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: border-color .3s;
+    }
+    .sidebar-card:hover { border-color: rgba(0, 200, 255, .3); }
+
+    .sidebar-title {
+      font-family: 'Space Mono', monospace;
+      font-size: .65rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .sidebar-stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      font-size: .82rem;
+    }
+    .sidebar-stat:last-child { border-bottom: none; }
+    .sidebar-stat-label { color: var(--muted); }
+    .sidebar-stat-value {
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: .72rem;
+    }
+
+    /* Stack tag pills in the sidebar */
+    .sidebar-tags { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .sidebar-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: .6rem;
+      padding: 4px 10px;
+      border-radius: 3px;
+      background: rgba(0, 87, 255, .1);
+      border: 1px solid rgba(0, 87, 255, .25);
+      color: #6fa3ff;
+    }
+
+    /* Sidebar CTA buttons */
+    .sidebar-actions { display: flex; flex-direction: column; gap: .8rem; }
+    .sidebar-btn {
+      display: block;
+      text-align: center;
+      padding: 11px;
+      border-radius: 4px;
+      font-family: 'Space Mono', monospace;
+      font-size: .7rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all .25s;
+    }
+    .sidebar-btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+      border: 1.5px solid var(--accent);
+    }
+    .sidebar-btn-primary:hover { background: transparent; color: var(--accent); }
+    .sidebar-btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+    .sidebar-btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .project-layout    { grid-template-columns: 1fr; }
+      .screenshot-grid   { grid-template-columns: 1fr; }
+      .project-hero      { padding: 130px 6vw 60px; }
+      .project-body      { padding: 60px 6vw; }
+    }
+
+    /* ══ DETAIL PAGE — BROWSER FRAME ═══════════════════════
+       Full-width GIF showcase with realistic browser chrome.
+    ══════════════════════════════════════════════════════ */
+    .detail-browser-frame {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid rgba(0, 200, 255, .3);
+      background: #080e1c;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, .6), 0 0 30px rgba(0,200,255,.15), inset 0 0 30px rgba(0,200,255,.05);
+      margin-top: 1rem;
+      transition: all .3s ease;
+    }
+    .detail-browser-bar {
+      height: 36px;
+      background: #0f1624;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 10px;
+    }
+    .detail-browser-dots { display: flex; gap: 5px; }
+    .detail-browser-url {
+      flex: 1;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 4px;
+      padding: 4px 12px;
+      font-family: 'Space Mono', monospace;
+      font-size: .6rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .detail-gif-wrap { width:100%; aspect-ratio:16/9; overflow:hidden; border-radius:6px; }
+    .detail-gif { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease; }
+    .detail-browser-frame:hover .detail-gif { transform:scale(1.02); }
+    .detail-browser-frame:hover { border-color:rgba(0,200,255,.5); box-shadow:0 20px 60px rgba(0,200,255,.2), 0 0 30px rgba(0,200,255,.3), inset 0 0 30px rgba(0,200,255,.1); }
+
+    /* bdot classes are already in styles.css — re-declare here
+       so this page works standalone */
+    .bdot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .bdot--red    { background: #ff5f57; }
+    .bdot--yellow { background: #febc2e; }
+    .bdot--green  { background: #28c840; }
+  </style>
+</head>
+<body>
+
+  <!-- Custom cursor (same as main portfolio) -->
+  <div class="cursor" id="cursor">
+    <div class="cursor-ring" id="cursor-ring"></div>
+    <div class="cursor-dot"  id="cursor-dot"></div>
+  </div>
+
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Minimal nav for project detail pages -->
+  <nav id="navbar">
+    <a href="index.html" class="nav-logo">&lt;<span>Orest Zogju</span> /&gt;</a>
+    <ul class="nav-links">
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- ══ PROJECT HERO ══════════════════════════════ -->
+    <div class="project-hero">
+      <a href="index.html#projects" class="back-link">← Back to Projects</a>
+
+      <p class="project-hero-label">// Project_03 — Machine Learning</p>
+      <h1 class="project-hero-title">AI Football<br>Match Predictor</h1>
+      <p class="project-hero-subtitle">
+        A Python ML pipeline that ingests historical football match data, engineers
+        meaningful features, and trains a classifier to predict Win / Draw / Loss
+        outcomes — complete with per-team win probability outputs.
+      </p>
+
+      <div class="project-hero-tags">
+        <span class="hero-tag">Python</span>
+        <span class="hero-tag">scikit-learn</span>
+        <span class="hero-tag">pandas</span>
+        <span class="hero-tag">Machine Learning</span>
+        <span class="hero-tag">Data Science</span>
+        <span class="hero-tag">Sports Analytics</span>
+      </div>
+    </div>
+
+    <!-- ══ PROJECT BODY ══════════════════════════════ -->
+    <div class="project-body">
+      <div class="project-layout">
+
+        <!-- ── Main Content ── -->
+        <div class="project-main">
+
+          <!-- Overview -->
+          <div class="content-section reveal">
+            <p class="content-label">Overview</p>
+            <h2 class="content-heading">About the Project</h2>
+            <p class="content-text">
+              This project was born from a personal challenge: could I build a machine learning model
+              that accurately predicts football match outcomes using real historical data? Using <strong>Python</strong>
+              and <strong>scikit-learn</strong>, I constructed a complete ML data pipeline that transforms raw
+              CSV match statistics into actionable predictions, outputting <strong>win probabilities</strong> for
+              every possible outcome (Win, Draw, Loss).
+            </p>
+            <p class="content-text">
+              The model learns from historical league fixtures, identifying patterns in team statistics such as
+              recent form, goals scored/conceded, home and away performance, head-to-head records, and other
+              derived features. This was my first hands-on machine learning project and a significant milestone
+              in my journey into data science and sports analytics. It showcased the power of feature engineering
+              and the importance of proper model evaluation.
+            </p>
+          </div>
+
+          <!-- Screenshots / GIFs -->
+          <div class="content-section reveal reveal-delay-1">
+            <p class="content-label">Preview</p>
+            <h2 class="content-heading">App Overview</h2>
+
+            <!-- Full-width browser frame with the live GIF -->
+            <div class="detail-browser-frame">
+              <div class="detail-browser-bar">
+                <div class="detail-browser-dots">
+                  <span class="bdot bdot--red"></span>
+                  <span class="bdot bdot--yellow"></span>
+                  <span class="bdot bdot--green"></span>
+                </div>
+                <div class="detail-browser-url">
+                  <span>🔒</span> football-predictor-pro · Streamlit
+                </div>
+              </div>
+              <div class="detail-gif-wrap">
+                <img src="FootballPredictorAI.gif"
+                     alt="Football Predictor Pro — full walkthrough"
+                     class="detail-gif">
+              </div>
+            </div>
+
+            <div class="screenshot-grid" style="margin-top:1rem;">
+              <div class="screenshot-card">
+                <div class="screenshot-placeholder" style="background:linear-gradient(135deg,#0a1e15,#061510)">
+                  <div class="screenshot-placeholder-icon">📊</div>
+                  <span>Predictions Dashboard</span>
+                </div>
+                <div class="screenshot-caption">Upload CSV → instant fixture predictions</div>
+              </div>
+              <div class="screenshot-card">
+                <div class="screenshot-placeholder" style="background:linear-gradient(135deg,#0a1e15,#061510)">
+                  <div class="screenshot-placeholder-icon">📈</div>
+                  <span>Model Metrics</span>
+                </div>
+                <div class="screenshot-caption">Classification report & accuracy scores</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Features -->
+          <div class="content-section reveal reveal-delay-2">
+            <p class="content-label">Features</p>
+            <h2 class="content-heading">What It Does</h2>
+            <ul class="feature-list">
+              <li>Reads and parses historical match data from CSV files using <strong>pandas</strong></li>
+              <li>Cleans and preprocesses data, handling missing values and data type conversions</li>
+              <li>Engineers powerful features: rolling form windows, home/away win rates, goal averages, head-to-head statistics</li>
+              <li>Trains a classification model (Random Forest or Logistic Regression) via <strong>scikit-learn</strong></li>
+              <li>Outputs precise <strong>Win / Draw / Loss probabilities</strong> for any given fixture</li>
+              <li>Evaluates model performance using cross-validation, precision, recall, and F1-scores</li>
+              <li>Serializes the trained model to disk for efficient reuse without retraining</li>
+              <li>Provides comprehensive classification reports and confusion matrices for model analysis</li>
+            </ul>
+          </div>
+
+          <!-- Sample results table -->
+          <div class="content-section reveal">
+            <p class="content-label">Sample Results</p>
+            <h2 class="content-heading">Predicted Probabilities</h2>
+            <table class="results-table">
+              <thead>
+                <tr>
+                  <th>Home</th>
+                  <th>Away</th>
+                  <th>Win %</th>
+                  <th>Draw %</th>
+                  <th>Loss %</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Team A</td><td>Team B</td><td style="color:var(--accent)">62%</td><td>21%</td><td>17%</td></tr>
+                <tr><td>Team C</td><td>Team D</td><td>34%</td><td style="color:var(--accent)">38%</td><td>28%</td></tr>
+                <tr><td>Team E</td><td>Team F</td><td>19%</td><td>27%</td><td style="color:var(--accent)">54%</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- What I learned -->
+          <div class="content-section reveal">
+            <p class="content-label">Reflection</p>
+            <h2 class="content-heading">What I Learned</h2>
+            <p class="content-text">
+              This project was my real introduction to the complete machine learning workflow — from handling messy,
+              raw data to deploying a working predictive model. I discovered that <strong>feature engineering</strong> is often
+              more critical than model selection, and learned hard lessons about overfitting through proper
+              train/test splits and rigorous cross-validation techniques.
+            </p>
+            <p class="content-text">
+              I became comfortable with <strong>pandas</strong> for complex data wrangling tasks and discovered how powerful
+              scikit-learn's pipeline API is for keeping preprocessing and modeling steps clean, reproducible, and maintainable.
+              The experience reinforced the importance of understanding your data deeply before attempting to model it.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- ── Sidebar ── -->
+        <aside class="project-sidebar">
+
+          <!-- Links -->
+          <div class="sidebar-card reveal">
+            <div class="sidebar-title">Links</div>
+            <div class="sidebar-actions">
+              <a href="index.html#projects" class="sidebar-btn sidebar-btn-ghost">
+                ← All Projects
+              </a>
+            </div>
+          </div>
+
+          <!-- Project info -->
+          <div class="sidebar-card reveal reveal-delay-1">
+            <div class="sidebar-title">Project Info</div>
+            <div class="sidebar-stat">
+              <span class="sidebar-stat-label">Type</span>
+              <span class="sidebar-stat-value">ML Model</span>
+            </div>
+            <div class="sidebar-stat">
+              <span class="sidebar-stat-label">Language</span>
+              <span class="sidebar-stat-value">Python</span>
+            </div>
+            <div class="sidebar-stat">
+              <span class="sidebar-stat-label">Status</span>
+              <span class="sidebar-stat-value" style="color:var(--accent)">In Progress</span>
+            </div>
+            <div class="sidebar-stat">
+              <span class="sidebar-stat-label">Year</span>
+              <span class="sidebar-stat-value">2026</span>
+            </div>
+          </div>
+
+          <!-- Tech stack -->
+          <div class="sidebar-card reveal reveal-delay-2">
+            <div class="sidebar-title">Tech Stack</div>
+            <div class="sidebar-tags">
+              <span class="sidebar-tag">Python 3</span>
+              <span class="sidebar-tag">scikit-learn</span>
+              <span class="sidebar-tag">pandas</span>
+              <span class="sidebar-tag">NumPy</span>
+              <span class="sidebar-tag">Matplotlib</span>
+              <span class="sidebar-tag">joblib</span>
+            </div>
+          </div>
+
+        </aside>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>Designed &amp; built by <span>Orest Zogju</span> — 2026 &nbsp;|&nbsp; IT Portfolio</p>
+  </footer>
+
+  <script src="main.js" defer></script>
+
+</body>
+</html>

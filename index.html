@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Orest Zogju — IT Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       CUSTOM CURSOR
+       Two-part cursor: a snappy dot + a lagging ring.
+       Positions are driven by JS in main.js.
+  ══════════════════════════════════════════ -->
+  <div class="cursor" id="cursor">
+    <div class="cursor-ring" id="cursor-ring"></div>
+    <div class="cursor-dot"  id="cursor-dot"></div>
+  </div>
+
+  <!-- Animated particle/grid background (drawn by JS onto this canvas) -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- ══════════════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════════════ -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">&lt;<span>Orest Zogju</span> /&gt;</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- ══════════════════════════════════════
+         HERO SECTION
+    ══════════════════════════════════════ -->
+    <section id="hero">
+      <div class="hero-left">
+        <p class="hero-label">// Portfolio 2026</p>
+
+        <!-- data-text mirrors the text content — used by the CSS glitch effect -->
+        <h1 class="hero-name glitch" data-text="Orest Z.">
+          Orest<br><span class="accent">Zogju</span>
+        </h1>
+
+        <!-- #typed is filled character-by-character by the typing effect in JS -->
+        <p class="hero-role">
+          &gt; Aspiring <span class="typed-text" id="typed"></span><span class="cursor-blink"></span>
+        </p>
+
+        <p class="hero-bio">
+          Passionate IT student building real-world projects at the intersection of
+          backend logic and intuitive interfaces. Currently sharpening my skills in
+          <strong>Java</strong>, <strong>web development</strong>, and <strong>OOP design patterns</strong>
+          — ready to contribute from day one.
+        </p>
+
+        <div class="hero-cta">
+          <a href="#projects"                                           class="btn btn-primary">View Projects</a>
+          <a href="#contact"                                            class="btn btn-ghost">Get In Touch</a>
+          <a href="https://github.com/Orest-Z"           target="_blank" class="btn btn-ghost">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/orest-zogju-288639311/" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+        </div>
+      </div>
+
+      <!-- Avatar with animated orbital rings -->
+      <div class="hero-right">
+        <div class="avatar-wrapper">
+          <div class="avatar-ring-outer"></div>
+          <div class="avatar-ring"></div>
+
+          <!-- Orbit dots spin around the avatar using CSS keyframes -->
+          <div class="orbit-dot orbit-dot--cyan"   style="top:50%;left:50%;"></div>
+          <div class="orbit-dot orbit-dot--purple" style="top:50%;left:50%;"></div>
+
+          <div class="avatar-inner">
+            <img src="myPic.jpg" alt="Orest Zogju" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ══════════════════════════════════════
+         ABOUT SECTION
+    ══════════════════════════════════════ -->
+    <section id="about">
+      <div>
+        <div class="section-header reveal">
+          <p class="section-label">// 01 — About</p>
+          <h2 class="section-title">Who I Am</h2>
+        </div>
+
+        <div class="about-text">
+          <p class="reveal reveal-delay-1">
+            I'm <strong>Orest.Z</strong>, an IT student with a genuine love for programming
+            and problem-solving. I started coding at college where I built my first web projects
+            using <strong>HTML &amp; CSS</strong>, and since then I haven't stopped exploring.
+          </p>
+          <p class="reveal reveal-delay-2">
+            My latest focus has been <strong>Java</strong> — from core OOP concepts through to
+            building desktop GUI applications with <strong>Java Swing</strong>. I enjoy the
+            challenge of turning abstract logic into something a user can actually interact with.
+          </p>
+          <p class="reveal reveal-delay-3">
+            I'm actively looking for my first IT role where I can keep learning, contribute
+            meaningfully to a team, and grow as a developer. <strong>Clean code, continuous
+            improvement, and real-world impact</strong> are what drive me.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick-glance stats grid -->
+      <div class="about-stats">
+        <div class="stat-card reveal">
+          <div class="stat-number">3+</div>
+          <div class="stat-label">Projects Built</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-1">
+          <div class="stat-number">2yr</div>
+          <div class="stat-label">Coding Experience</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-2">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Curiosity</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-3">
+          <div class="stat-number">0</div>
+          <div class="stat-label">Days Without Coding</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ══════════════════════════════════════
+         SKILLS SECTION
+    ══════════════════════════════════════ -->
+    <section id="skills">
+      <div class="section-header reveal">
+        <p class="section-label">// 02 — Skills</p>
+        <h2 class="section-title">Tech Stack</h2>
+      </div>
+
+      <div class="skills-grid">
+
+        <div class="skill-category reveal reveal-delay-1">
+          <div class="skill-cat-icon">☕</div>
+          <div class="skill-cat-title">Backend &amp; Java</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">OOP</span>
+            <span class="skill-tag">Java Swing</span>
+            <span class="skill-tag">Event-Driven UI</span>
+            <span class="skill-tag">MVC</span>
+          </div>
+        </div>
+
+        <div class="skill-category reveal reveal-delay-2">
+          <div class="skill-cat-icon">🌐</div>
+          <div class="skill-cat-title">Frontend &amp; Web</div>
+          <div class="skill-tags">
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">CSS3</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Responsive Design</span>
+          </div>
+        </div>
+
+        <div class="skill-category reveal reveal-delay-3">
+          <div class="skill-cat-icon">🛠️</div>
+          <div class="skill-cat-title">Tools &amp; Workflow</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag">VS Code</span>
+            <span class="skill-tag">IntelliJ IDEA</span>
+            <span class="skill-tag">GitHub Pages</span>
+          </div>
+        </div>
+
+        <div class="skill-category reveal reveal-delay-4">
+          <div class="skill-cat-icon">📐</div>
+          <div class="skill-cat-title">Concepts</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Algorithms</span>
+            <span class="skill-tag">Data Structures</span>
+            <span class="skill-tag">Version Control</span>
+            <span class="skill-tag">Debugging</span>
+            <span class="skill-tag">UI/UX Thinking</span>
+          </div>
+        </div>
+
+        <div class="skill-category reveal reveal-delay-2">
+          <div class="skill-cat-icon">🤖</div>
+          <div class="skill-cat-title">AI / ML &amp; Data</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">scikit-learn</span>
+            <span class="skill-tag">pandas</span>
+            <span class="skill-tag">Machine Learning</span>
+            <span class="skill-tag">Prompt Engineering</span>
+          </div>
+        </div>
+
+        <div class="skill-category reveal reveal-delay-3">
+          <div class="skill-cat-icon">🛡️</div>
+          <div class="skill-cat-title">Cybersecurity</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Network Security</span>
+            <span class="skill-tag">Threat Analysis</span>
+            <span class="skill-tag">Generative AI</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Animated skill-level bars -->
+      <!-- data-width is read by JS to animate the bar when it scrolls into view -->
+      <div class="skill-bars" style="max-width:600px; margin-top:3.5rem;">
+
+        <div class="skill-bar-item reveal">
+          <div class="skill-bar-top">
+            <span class="skill-bar-name">Java / OOP</span>
+            <span class="skill-bar-pct">75%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="75"></div>
+          </div>
+        </div>
+
+        <div class="skill-bar-item reveal reveal-delay-1">
+          <div class="skill-bar-top">
+            <span class="skill-bar-name">HTML &amp; CSS</span>
+            <span class="skill-bar-pct">80%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="80"></div>
+          </div>
+        </div>
+
+        <div class="skill-bar-item reveal reveal-delay-2">
+          <div class="skill-bar-top">
+            <span class="skill-bar-name">JavaScript</span>
+            <span class="skill-bar-pct">45%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="45"></div>
+          </div>
+        </div>
+
+        <div class="skill-bar-item reveal reveal-delay-3">
+          <div class="skill-bar-top">
+            <span class="skill-bar-name">Git &amp; GitHub</span>
+            <span class="skill-bar-pct">70%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="70"></div>
+          </div>
+        </div>
+
+        <div class="skill-bar-item reveal reveal-delay-4">
+          <div class="skill-bar-top">
+            <span class="skill-bar-name">Python / ML</span>
+            <span class="skill-bar-pct">60%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="60"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ══════════════════════════════════════
+         PROJECTS SECTION
+    ══════════════════════════════════════ -->
+    <section id="projects">
+      <div class="section-header reveal">
+        <p class="section-label">// 03 — Projects</p>
+        <h2 class="section-title">Featured Work</h2>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- ─── PROJECT 01 — Albanian Guide Website ─── -->
+        <div class="project-card reveal reveal-delay-1">
+          <div class="project-header-row">
+            <div class="project-number">PROJECT_01</div>
+            <div class="project-status-badge">LIVE</div>
+          </div>
+
+          <!-- Browser-frame GIF preview — clicking opens the detail page -->
+          <a href="project-albanian-guide.html" class="project-media-link">
+            <div class="browser-frame">
+              <!-- Realistic browser chrome bar -->
+              <div class="browser-bar">
+                <div class="browser-dots">
+                  <span class="bdot bdot--red"></span>
+                  <span class="bdot bdot--yellow"></span>
+                  <span class="bdot bdot--green"></span>
+                </div>
+                <div class="browser-url">
+                  <span class="url-lock">🔒</span>
+                  orest-z.github.io/albanian-guide
+                </div>
+              </div>
+              <!-- Actual GIF fills the viewport area below the bar -->
+              <div class="browser-viewport">
+                <img src="WebsiteAlbanianGuide.gif"
+                     alt="Albanian Guide Website live preview"
+                     class="browser-gif">
+                <!-- Hover overlay with CTA -->
+                <div class="browser-overlay">
+                  <div class="browser-overlay-inner">
+                    <span class="browser-overlay-icon">🔍</span>
+                    <span class="browser-overlay-text">View Full Details</span>
+                    <span class="browser-overlay-arrow">→</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <h3 class="project-title">Albanian Guide Website</h3>
+          <p class="project-desc">
+            A tourism guide website for the Mati region of Albania built at college.
+            Features a region overview, an interactive tour booking form with date
+            validation, and a thank-you confirmation flow — all delivered in Albanian.
+            Deployed live via GitHub Pages.
+          </p>
+          <div class="project-tech">
+            <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>GitHub Pages</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/Orest-Z/Simple-Albanian-Guide-Website" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.16c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.004 2.05.14 3 .4 2.28-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.3c0 .32.22.69.83.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              Source Code
+            </a>
+            <a class="project-link" href="https://orest-z.github.io/Simple-Albanian-Guide-Website/index.html" target="_blank">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg>
+              Live Demo
+            </a>
+            <a class="project-link details-cta" href="project-albanian-guide.html">
+              Full Details →
+            </a>
+          </div>
+        </div>
+
+        <!-- ─── PROJECT 02 — Java Banking App ─── -->
+        <div class="project-card reveal reveal-delay-2">
+          <div class="project-header-row">
+            <div class="project-number">PROJECT_02</div>
+            <div class="project-status-badge badge--java">JAVA</div>
+          </div>
+
+          <!-- Desktop-frame GIF preview (Java app = window chrome look) -->
+          <a href="project-banking-app.html" class="project-media-link">
+            <div class="browser-frame browser-frame--desktop">
+              <div class="browser-bar desktop-bar">
+                <div class="desktop-title-icon">☕</div>
+                <div class="desktop-title-text">Banking App — Java Swing</div>
+                <div class="browser-dots desktop-dots">
+                  <span class="bdot bdot--red"></span>
+                  <span class="bdot bdot--yellow"></span>
+                  <span class="bdot bdot--green"></span>
+                </div>
+              </div>
+              <div class="browser-viewport">
+                <img src="UpdateV2.1.gif"
+                     alt="Java Banking App live preview"
+                     class="browser-gif">
+                <div class="browser-overlay">
+                  <div class="browser-overlay-inner">
+                    <span class="browser-overlay-icon">🔍</span>
+                    <span class="browser-overlay-text">View Full Details</span>
+                    <span class="browser-overlay-arrow">→</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <h3 class="project-title">Java Banking App</h3>
+          <p class="project-desc">
+            A lightweight desktop banking application built with Java Swing to solidify
+            Object-Oriented Programming and event-driven UI skills. Implements core
+            banking operations through a fully interactive GUI, with plans to evolve
+            the project further using JavaFX.
+          </p>
+          <div class="project-tech">
+            <span>Java</span><span>Java Swing</span><span>OOP</span><span>Event-Driven</span><span>GUI</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/Orest-Z/Banking-App-Using-Java-Swing" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.16c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.004 2.05.14 3 .4 2.28-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.3c0 .32.22.69.83.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              Source Code
+            </a>
+            <a class="project-link details-cta" href="project-banking-app.html">
+              Full Details →
+            </a>
+          </div>
+        </div>
+
+        <!-- ─── PROJECT 03 — Python AI Football Predictor ─── -->
+        <div class="project-card reveal reveal-delay-3">
+          <div class="project-header-row">
+            <div class="project-number">PROJECT_03</div>
+            <div class="project-status-badge badge--ml">ML / AI</div>
+          </div>
+
+          <!-- Browser-frame GIF preview for the Streamlit/Python dashboard -->
+          <a href="project-football-predictor.html" class="project-media-link">
+            <div class="browser-frame">
+              <div class="browser-bar">
+                <div class="browser-dots">
+                  <span class="bdot bdot--red"></span>
+                  <span class="bdot bdot--yellow"></span>
+                  <span class="bdot bdot--green"></span>
+                </div>
+                <div class="browser-url">
+                  <span class="url-lock">🔒</span>
+                  football-predictor-pro · Streamlit
+                </div>
+              </div>
+              <div class="browser-viewport">
+                <img src="FootballPredictorAI.gif"
+                     alt="AI Football Predictor live preview"
+                     class="browser-gif">
+                <div class="browser-overlay">
+                  <div class="browser-overlay-inner">
+                    <span class="browser-overlay-icon">🔍</span>
+                    <span class="browser-overlay-text">View Full Details</span>
+                    <span class="browser-overlay-arrow">→</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <h3 class="project-title">AI Football Match Predictor</h3>
+          <p class="project-desc">
+            A Python machine-learning model that predicts football match outcomes
+            (Win / Draw / Loss) using historical match data. Built with scikit-learn,
+            the model is trained on real league statistics and outputs win probabilities
+            per team — a deep dive into data science and sports analytics.
+          </p>
+          <div class="project-tech">
+            <span>Python</span><span>scikit-learn</span><span>pandas</span><span>ML</span><span>Data Science</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/Orest-Z" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.16c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.004 2.05.14 3 .4 2.28-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.3c0 .32.22.69.83.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              Source Code
+            </a>
+            <a class="project-link" href="project-football-predictor.html">Details →</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ══════════════════════════════════════
+         CONTACT SECTION
+    ══════════════════════════════════════ -->
+    <section id="contact">
+      <div class="section-header reveal">
+        <p class="section-label">// 04 — Contact</p>
+        <h2 class="section-title">Let's Connect</h2>
+      </div>
+      <div class="contact-inner">
+
+        <div class="contact-left">
+          <p class="reveal">
+            I'm actively looking for opportunities in IT — whether that's a junior developer
+            role, internship, or collaborative project. If you think we'd be a good fit,
+            I'd love to hear from you.
+          </p>
+          <div class="contact-links">
+            <a href="https://github.com/Orest-Z" target="_blank" class="contact-link reveal reveal-delay-1">
+              <div class="contact-link-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--accent)"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.16c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.004 2.05.14 3 .4 2.28-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.3c0 .32.22.69.83.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              </div>
+              github.com/Orest-Z
+            </a>
+
+            <a href="/cdn-cgi/l/email-protection#96eff9e3e4d6f3fbf7fffab8f5f9fb" class="contact-link reveal reveal-delay-2">
+              <div class="contact-link-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <span class="__cf_email__" data-cfemail="afd6c0daddefcac2cec6c381ccc0c2">[email&#160;protected]</span>
+            </a>
+
+            <a href="https://www.linkedin.com/in/orest-zogju-288639311/" target="_blank" class="contact-link reveal reveal-delay-3">
+              <div class="contact-link-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--accent)"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.076-1.854-3.076-1.855 0-2.136 1.449-2.136 2.937v5.667H9.351V9h3.414v1.58h.048c.477-.87 1.637-1.85 3.589-1.85 3.897 0 4.692 2.597 4.692 5.907v6.002z"/><path d="M5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </div>
+              linkedin.com/in/Orest-Zogju
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact form — submits to Formspree -->
+        <div class="contact-form reveal reveal-delay-2">
+          <form action="https://formspree.io/f/xzdagjlg" method="POST">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea name="message" placeholder="Tell me about the opportunity..." required></textarea>
+            </div>
+            <div class="form-submit">
+              <button type="submit" class="btn btn-primary" id="submit-btn">Send Message →</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Designed &amp; built by <span>Orest Zogju</span> — 2026 &nbsp;|&nbsp; IT Portfolio</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
