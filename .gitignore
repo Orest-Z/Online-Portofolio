@@ -1,0 +1,52 @@
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+.AppleDouble
+.LSOverride
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-workspace
+*.sublime-project
+.vim/
+
+# Node.js (if you use npm/webpack)
+node_modules/
+package-lock.json
+yarn.lock
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+*.temp
+.sass-cache/
+.cache/
+
+# IDE specific
+*.iml
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local development
+localhost/
+local-dev/
