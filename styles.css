@@ -724,6 +724,17 @@ nav.scrolled {
 }
 .project-media-link:hover .browser-gif { filter: brightness(1.05); }
 
+/* Neon Highway card preview: preserve the original 600x480 (5:4) feel and avoid crop zoom */
+.browser-viewport--game-preview {
+  aspect-ratio: 5 / 4;
+}
+
+.browser-video--game-preview {
+  object-fit: contain;
+  object-position: center;
+  background: #030712;
+}
+
 /* ── "View Full Details" hover overlay ── */
 .browser-overlay {
   position: absolute;
