@@ -59,6 +59,38 @@
     .sidebar-btn-primary:hover { background: transparent; color: var(--accent); }
     .sidebar-btn-ghost { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
     .sidebar-btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .download-list { display: flex; flex-direction: column; gap: .75rem; }
+    .download-item {
+      text-decoration: none;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.02);
+      border-radius: 8px;
+      padding: .75rem .8rem;
+      transition: border-color .25s, transform .25s, background .25s;
+      display: block;
+    }
+    .download-item:hover {
+      border-color: rgba(0,200,255,.45);
+      background: rgba(0,200,255,.06);
+      transform: translateY(-2px);
+    }
+    .download-item-head {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      margin-bottom: .25rem;
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: .68rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .download-item-icon { font-size: 1rem; line-height: 1; }
+    .download-item-desc {
+      color: var(--muted);
+      font-size: .78rem;
+      line-height: 1.45;
+    }
     @media (max-width: 900px) {
       .project-layout { grid-template-columns: 1fr; }
       .screenshot-grid { grid-template-columns: 1fr; }
@@ -271,13 +303,33 @@
             </div>
           </div>
           <div class="sidebar-card reveal reveal-delay-1">
+            <div class="sidebar-title">Download</div>
+            <div class="download-list">
+              <a href="https://github.com/Orest-Z/Java-Competition-Game/releases/tag/V2.2.1" target="_blank" class="download-item">
+                <div class="download-item-head">
+                  <span class="download-item-icon">🪟</span>
+                  <span>Windows EXE</span>
+                </div>
+                <div class="download-item-desc">Standalone executable for Windows. No Java setup needed, just download and run.</div>
+              </a>
+
+              <a href="https://github.com/Orest-Z/Java-Competition-Game/releases/tag/V2.2.0" target="_blank" class="download-item">
+                <div class="download-item-head">
+                  <span class="download-item-icon">☕</span>
+                  <span>Java JAR</span>
+                </div>
+                <div class="download-item-desc">Portable JAR build of the same version. Requires JDK/Java 17 installed first.</div>
+              </a>
+            </div>
+          </div>
+          <div class="sidebar-card reveal reveal-delay-2">
             <div class="sidebar-title">Project Info</div>
             <div class="sidebar-stat"><span class="sidebar-stat-label">Type</span><span class="sidebar-stat-value">Game / Desktop</span></div>
             <div class="sidebar-stat"><span class="sidebar-stat-label">Language</span><span class="sidebar-stat-value">Java</span></div>
             <div class="sidebar-stat"><span class="sidebar-stat-label">Timeline</span><span class="sidebar-stat-value">10 Days</span></div>
             <div class="sidebar-stat"><span class="sidebar-stat-label">Status</span><span class="sidebar-stat-value" style="color:var(--accent)">Complete</span></div>
           </div>
-          <div class="sidebar-card reveal reveal-delay-2">
+          <div class="sidebar-card reveal reveal-delay-3">
             <div class="sidebar-title">Tech Stack</div>
             <div class="sidebar-tags">
               <span class="sidebar-tag">Java 17</span>
