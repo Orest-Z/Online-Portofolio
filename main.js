@@ -65,35 +65,38 @@ let isDeleting = false;
 
 const typedEl = document.getElementById('typed');
 
-function type() {
-  const currentRole = roles[roleIndex];
+// Only run the typing effect on pages that actually contain the #typed element
+if (typedEl) {
+  function type() {
+    const currentRole = roles[roleIndex];
 
-  if (!isDeleting) {
-    // Type one character forward
-    typedEl.textContent = currentRole.slice(0, ++charIndex);
+    if (!isDeleting) {
+      // Type one character forward
+      typedEl.textContent = currentRole.slice(0, ++charIndex);
 
-    if (charIndex === currentRole.length) {
-      // Fully typed — pause before deleting
-      isDeleting = true;
-      setTimeout(type, 1800);
-      return;
+      if (charIndex === currentRole.length) {
+        // Fully typed — pause before deleting
+        isDeleting = true;
+        setTimeout(type, 1800);
+        return;
+      }
+    } else {
+      // Delete one character
+      typedEl.textContent = currentRole.slice(0, --charIndex);
+
+      if (charIndex === 0) {
+        // Fully deleted — move to the next role
+        isDeleting = false;
+        roleIndex  = (roleIndex + 1) % roles.length;
+      }
     }
-  } else {
-    // Delete one character
-    typedEl.textContent = currentRole.slice(0, --charIndex);
 
-    if (charIndex === 0) {
-      // Fully deleted — move to the next role
-      isDeleting = false;
-      roleIndex  = (roleIndex + 1) % roles.length;
-    }
+    // Deleting is faster than typing for a realistic feel
+    setTimeout(type, isDeleting ? 55 : 90);
   }
 
-  // Deleting is faster than typing for a realistic feel
-  setTimeout(type, isDeleting ? 55 : 90);
+  type(); // kick off the typing loop
 }
-
-type(); // kick off the typing loop
 
 
 /* ── 4. SCROLL REVEAL ────────────────────────────── */

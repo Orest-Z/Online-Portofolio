@@ -1170,8 +1170,8 @@ footer span { color: var(--accent); }
 /* Elements with .reveal start invisible and slide up.
    JS (IntersectionObserver) adds .visible when they enter the viewport. */
 .reveal {
-  opacity: 1;
-  transform: none;
+  opacity: 0;
+  transform: translateY(16px);
   transition: opacity .7s cubic-bezier(.4, 0, .2, 1),
               transform .7s cubic-bezier(.4, 0, .2, 1);
 }
