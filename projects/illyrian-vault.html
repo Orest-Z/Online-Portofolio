@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Illyrian Vault — Local Password Manager | Orest Zogju</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .project-hero {
+      min-height: 60vh; display: flex; flex-direction: column; justify-content: center;
+      padding: 160px 8vw 80px; position: relative; z-index: 2; border-bottom: 1px solid var(--border);
+    }
+    .back-link {
+      font-family: 'Space Mono', monospace; font-size: .72rem; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      display: inline-flex; align-items: center; gap: .5rem; margin-bottom: 2.5rem;
+      transition: color .2s, gap .2s;
+    }
+    .back-link:hover { color: var(--accent); gap: .8rem; }
+    .project-hero-label { font-family: 'Space Mono', monospace; font-size: .7rem; letter-spacing: .25em; text-transform: uppercase; color: var(--accent); margin-bottom: .8rem; }
+    .project-hero-title { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; color: var(--white); line-height: 1.05; margin-bottom: 1.5rem; }
+    .project-hero-subtitle { font-size: 1.05rem; color: var(--muted); max-width: 640px; line-height: 1.75; margin-bottom: 2rem; }
+    .project-hero-tags { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .hero-tag { font-family: 'Space Mono', monospace; font-size: .65rem; padding: 6px 14px; border-radius: 3px; background: rgba(0,200,255,.08); border: 1px solid rgba(0,200,255,.2); color: var(--accent); letter-spacing: .08em; }
+    .project-body { position: relative; z-index: 2; padding: 80px 8vw; max-width: 1200px; margin: 0 auto; }
+    .project-layout { display: grid; grid-template-columns: 1fr 340px; gap: 4rem; align-items: start; }
+    .project-main { position: relative; z-index: 3; }
+    .content-section { margin-bottom: 3.5rem; }
+    .content-label { font-family: 'Space Mono', monospace; font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .content-heading { font-size: 1.5rem; font-weight: 800; color: var(--white); margin-bottom: 1rem; }
+    .content-text { font-size: .95rem; line-height: 1.8; color: var(--muted); }
+    .content-text + .content-text { margin-top: 1rem; }
+    .content-text strong { color: var(--text); }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: .8rem; margin-top: 1rem; }
+    .feature-list li { font-size: .9rem; color: var(--muted); display: flex; gap: .8rem; align-items: flex-start; line-height: 1.6; }
+    .feature-list li::before { content: '▹'; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+    .screenshot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+    .screenshot-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; transition: border-color .3s, transform .3s; }
+    .screenshot-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .screenshot-placeholder { aspect-ratio: 16/9; background: linear-gradient(135deg, #1a0a2e, #0d061e); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem; }
+    .screenshot-placeholder span { font-family: 'Space Mono', monospace; font-size: .6rem; letter-spacing: .1em; color: var(--muted); }
+    .screenshot-placeholder-icon { font-size: 2rem; }
+    .screenshot-caption { font-family: 'Space Mono', monospace; font-size: .6rem; letter-spacing: .08em; color: var(--muted); padding: .8rem 1rem; border-top: 1px solid var(--border); }
+    .project-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+    .sidebar-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; transition: border-color .3s; }
+    .sidebar-card:hover { border-color: rgba(0,200,255,.3); }
+    .sidebar-title { font-family: 'Space Mono', monospace; font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .sidebar-stat { display: flex; justify-content: space-between; align-items: center; padding: .5rem 0; border-bottom: 1px solid rgba(255,255,255,.04); font-size: .82rem; }
+    .sidebar-stat:last-child { border-bottom: none; }
+    .sidebar-stat-label { color: var(--muted); }
+    .sidebar-stat-value { color: var(--white); font-family: 'Space Mono', monospace; font-size: .72rem; }
+    .sidebar-tags { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .sidebar-tag { font-family: 'Space Mono', monospace; font-size: .6rem; padding: 4px 10px; border-radius: 3px; background: rgba(0,200,255,.1); border: 1px solid rgba(0,200,255,.25); color: #6fa3ff; }
+    .sidebar-actions { display: flex; flex-direction: column; gap: .8rem; }
+    .sidebar-btn { display: block; text-align: center; padding: 11px; border-radius: 4px; font-family: 'Space Mono', monospace; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; transition: all .25s; }
+    .sidebar-btn-primary { background: var(--accent); color: var(--bg); font-weight: 700; border: 1.5px solid var(--accent); }
+    .sidebar-btn-primary:hover { background: transparent; color: var(--accent); }
+    .sidebar-btn-ghost { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
+    .sidebar-btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .download-list { display: flex; flex-direction: column; gap: .75rem; }
+    .download-item {
+      text-decoration: none;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.02);
+      border-radius: 8px;
+      padding: .75rem .8rem;
+      transition: border-color .25s, transform .25s, background .25s;
+      display: block;
+    }
+    .download-item:hover {
+      border-color: rgba(0,200,255,.45);
+      background: rgba(0,200,255,.06);
+      transform: translateY(-2px);
+    }
+    .download-item-head {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      margin-bottom: .25rem;
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: .68rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .download-item-icon { font-size: 1rem; line-height: 1; }
+    .download-item-desc {
+      color: var(--muted);
+      font-size: .78rem;
+      line-height: 1.45;
+    }
+    @media (max-width: 900px) {
+      .project-layout { grid-template-columns: 1fr; }
+      .screenshot-grid { grid-template-columns: 1fr; }
+      .project-hero { padding: 130px 6vw 60px; }
+      .project-body { padding: 60px 6vw; }
+    }
+    .detail-browser-frame {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid rgba(0,200,255,.3);
+      background: #0b0718;
+      box-shadow: 0 12px 40px rgba(0,0,0,.6), 0 0 30px rgba(0,200,255,.15), inset 0 0 30px rgba(0,200,255,.05);
+      margin-top: 1rem;
+      width: min(100%, 760px);
+      transition: all .3s ease;
+    }
+    .detail-browser-bar { height:36px; background:#0f1624; border-bottom:1px solid rgba(255,255,255,.06); display:flex; align-items:center; padding:0 12px; gap:10px; justify-content: space-between; }
+    .detail-browser-dots { display:flex; gap:5px; }
+    .detail-browser-url { flex:1; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.07); border-radius:4px; padding:4px 12px; font-family:'Space Mono',monospace; font-size:.6rem; color:var(--muted); display:flex; align-items:center; gap:6px; }
+    .detail-video-wrap { width:100%; aspect-ratio:5/4; overflow:hidden; border-radius:6px; position: relative; background:#030712; }
+    .detail-video { width:100%; height:100%; object-fit:contain; object-position:center; display:block; transition:filter .3s ease; }
+    .detail-browser-frame:hover .detail-video { filter:brightness(1.03); }
+    .detail-browser-frame:hover { border-color:rgba(0,200,255,.5); box-shadow:0 20px 60px rgba(0,200,255,.2), 0 0 30px rgba(0,200,255,.3), inset 0 0 30px rgba(0,200,255,.1); }
+    .bdot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+    .bdot--red { background:#ff5f57; } .bdot--yellow { background:#febc2e; } .bdot--green { background:#28c840; }
+    
+    /* Audio control styling */
+    .video-controls {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(0, 200, 255, 0.3);
+      border-radius: 6px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 10;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .video-controls:hover {
+      background: rgba(0, 0, 0, 0.95);
+      border-color: rgba(0, 200, 255, 0.6);
+    }
+    .audio-icon {
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+    .audio-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor">
+    <div class="cursor-ring" id="cursor-ring"></div>
+    <div class="cursor-dot"  id="cursor-dot"></div>
+  </div>
+  <canvas id="bg-canvas"></canvas>
+
+  <nav id="navbar">
+    <a href="../index.html" class="nav-logo">&lt;<span>Orest Zogju</span> /&gt;</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="project-hero">
+      <a href="../index.html#projects" class="back-link">← Back to Projects</a>
+      <p class="project-hero-label">// Project_05 — Security / Desktop</p>
+      <h1 class="project-hero-title">Illyrian Vault<br>Local Encrypted Password Manager</h1>
+      <p class="project-hero-subtitle">
+        A local, offline, fully encrypted password manager for Windows: AES-256 field encryption, SQLCipher full-database encryption, and security-first features.
+      </p>
+      <div class="project-hero-tags">
+        <span class="hero-tag">.NET 10</span>
+        <span class="hero-tag">WPF</span>
+        <span class="hero-tag">Security</span>
+        <span class="hero-tag">Offline</span>
+        <span class="hero-tag">Portable</span>
+      </div>
+    </div>
+
+    <div class="project-body">
+      <div class="project-layout">
+        <div class="project-main">
+
+          <div class="content-section reveal">
+            <p class="content-label">Overview</p>
+            <h2 class="content-heading">What is Illyrian Vault?</h2>
+            <p class="content-text">
+              <strong>Illyrian Vault</strong> is a free, portable password manager built for Windows. Everything is stored locally in a fully encrypted database — there is no server, no sync service, and no internet requirement. The master password never leaves your device. Built with a security-first design and a clean, modern UI.
+            </p>
+          </div>
+
+          <div class="content-section reveal reveal-delay-1">
+            <p class="content-label">Preview</p>
+            <h2 class="content-heading">App Walkthrough</h2>
+
+            <div class="detail-browser-frame" style="border-color:rgba(200,20,20,.18);background:#120b0c;">
+              <div class="detail-browser-bar" style="background:#1a0f10;border-bottom:1px solid rgba(255,255,255,.04);">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-size:1rem;">🔐</span>
+                  <span style="font-family:'Space Mono',monospace;font-size:.6rem;color:var(--muted);">Illyrian Vault — Demo</span>
+                </div>
+                <div class="detail-browser-dots">
+                  <span class="bdot bdot--red"></span>
+                  <span class="bdot bdot--yellow"></span>
+                  <span class="bdot bdot--green"></span>
+                </div>
+              </div>
+              <div class="detail-video-wrap">
+                <img src="../images/IlllyrianVault.gif" alt="Illyrian Vault demo" class="detail-video"/>
+              </div>
+            </div>
+
+            <div class="screenshot-grid" style="margin-top:1rem;">
+              <div class="screenshot-card">
+                <div class="screenshot-placeholder" style="background:linear-gradient(135deg,#2a0a0a,#120707)">
+                  <div class="screenshot-placeholder-icon">🔐</div>
+                  <span>Login & Profiles</span>
+                </div>
+                <div class="screenshot-caption">Multi-profile selector and master password entry</div>
+              </div>
+              <div class="screenshot-card">
+                <div class="screenshot-placeholder" style="background:linear-gradient(135deg,#21110f,#0f0a09)">
+                  <div class="screenshot-placeholder-icon">🗂️</div>
+                  <span>Vault Dashboard</span>
+                </div>
+                <div class="screenshot-caption">Entries, search, categories, and entry history</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-section reveal reveal-delay-2">
+            <p class="content-label">Features</p>
+            <h2 class="content-heading">Security & Functionality</h2>
+            <ul class="feature-list">
+              <li><strong>AES-256-GCM</strong> field-level encryption on every password entry</li>
+              <li><strong>SQLCipher</strong> full-database encryption — database unreadable without master password</li>
+              <li><strong>PBKDF2-SHA512</strong> key derivation at 600,000 iterations</li>
+              <li><strong>Password Generator</strong> with configurable options and live strength scoring</li>
+              <li><strong>HaveIBeenPwned</strong> breach check via k-anonymity</li>
+              <li><strong>Clipboard Guard</strong> — auto-wipes copied secrets after 15s</li>
+              <li><strong>Recovery Key</strong> — reset master password without losing data</li>
+              <li><strong>Portable</strong> — single EXE, no installer or registry writes</li>
+            </ul>
+          </div>
+
+          <div class="content-section reveal reveal-delay-3">
+            <p class="content-label">Security Architecture</p>
+            <h2 class="content-heading">Implementation Details</h2>
+            <p class="content-text">
+              Illyrian Vault applies layered cryptography: PBKDF2-SHA512 for master key derivation (600k iterations), SQLCipher for full-database AES-256 encryption, and AES-256-GCM for field-level values. The app uses exponential backoff and lockout protections, pinned memory buffers, and careful zeroing of sensitive data.
+            </p>
+          </div>
+
+        </div>
+
+        <aside class="project-sidebar">
+          <div class="sidebar-card reveal">
+            <div class="sidebar-title">Links</div>
+            <div class="sidebar-actions">
+              <a href="https://github.com/Orest-Z/Illyrian-Vault" target="_blank" class="sidebar-btn sidebar-btn-primary">GitHub Repository ↗</a>
+              <a href="https://github.com/Orest-Z/Illyrian-Vault/releases/latest" target="_blank" class="sidebar-btn sidebar-btn-ghost">Latest Release ↗</a>
+              <a href="../index.html#projects" class="sidebar-btn sidebar-btn-ghost">← All Projects</a>
+            </div>
+          </div>
+
+          <div class="sidebar-card reveal reveal-delay-1">
+            <div class="sidebar-title">Download</div>
+            <div class="download-list">
+              <a href="https://github.com/Orest-Z/Illyrian-Vault/releases/latest" target="_blank" class="download-item">
+                <div class="download-item-head">
+                  <span class="download-item-icon">🪟</span>
+                  <span>Windows ZIP (Recommended)</span>
+                </div>
+                <div class="download-item-desc">Download the ZIP (contains the app, updater, README, and license). Run Illyrian Vault.exe without installing.</div>
+              </a>
+              <a href="https://github.com/Orest-Z/Illyrian-Vault/releases/latest" target="_blank" class="download-item">
+                <div class="download-item-head">
+                  <span class="download-item-icon">⬇️</span>
+                  <span>Standalone EXE</span>
+                </div>
+                <div class="download-item-desc">Standalone EXE used by the updater internally. Use the ZIP for full package contents.</div>
+              </a>
+            </div>
+          </div>
+
+          <div class="sidebar-card reveal reveal-delay-2">
+            <div class="sidebar-title">Project Info</div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Type</span><span class="sidebar-stat-value">Desktop / Password Manager</span></div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Platform</span><span class="sidebar-stat-value">Windows x64</span></div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Runtime</span><span class="sidebar-stat-value">Bundled .NET 10</span></div>
+            <div class="sidebar-stat"><span class="sidebar-stat-label">Status</span><span class="sidebar-stat-value" style="color:var(--accent)">Complete</span></div>
+          </div>
+
+          <div class="sidebar-card reveal reveal-delay-3">
+            <div class="sidebar-title">Tech Stack</div>
+            <div class="sidebar-tags">
+              <span class="sidebar-tag">.NET 10</span>
+              <span class="sidebar-tag">WPF</span>
+              <span class="sidebar-tag">SQLCipher</span>
+              <span class="sidebar-tag">AES-256-GCM</span>
+              <span class="sidebar-tag">PBKDF2-SHA512</span>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Designed &amp; built by <span>Orest Zogju</span> — 2026 &nbsp;|&nbsp; IT Portfolio</p>
+  </footer>
+
+  <script src="../main.js" defer></script>
+</body>
+</html>
